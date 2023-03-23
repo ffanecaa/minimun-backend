@@ -17,8 +17,8 @@ let tarefa = [
 ]
 
 // Definicions de endpoints
-app.post("/tarefas/", controladorPost)
-app.get("/tarefas/", controladorGet)
+app.post("/tarefa/", controladorPost)
+app.get("/tarefa/", controladorGet)
 
 // Controladores executados polos endpoints
 function controladorPost (peticion, resposta) {
