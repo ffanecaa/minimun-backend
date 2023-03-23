@@ -12,7 +12,7 @@ let tarefa = [
     {
         id: 0,
         descripcion: "Unha tarefa de exemplo",
-        completado: true,
+        rematada: true,
     }
 ]
 
