@@ -28,12 +28,12 @@ function controladorPost (peticion, resposta) {
     resposta.status(201)
     resposta.send("Ok")
 }
-function controladorPut (peticion, resposta) {
-    const indice =tarefa.findIndex(tarefa => tarefa.id === peticion.body.id)
-    tarefa.splice(indice,1,peticion.body)
-    resposta.status(201)
-    resposta.send("Ok")
-}
+// function controladorPut (peticion, resposta) {
+//     const indice =tarefa.findIndex(tarefa => tarefa.id === peticion.body.id)
+//     const niidea =tarefa.splice(indice,1,peticion.body)
+//     niidea.push(peticion.body)
+//     resposta.send("Ok")
+// }
 
 function controladorGet (peticion, resposta) {
     resposta.status(200)
