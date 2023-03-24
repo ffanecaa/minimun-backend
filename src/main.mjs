@@ -20,10 +20,17 @@ let tarefa = [
 // Definicions de endpoints
 app.post("/tarefa/", controladorPost)
 app.get("/tarefa/", controladorGet)
+app.put("/tarefa/", controladorPut)
 
 // Controladores executados polos endpoints
 function controladorPost (peticion, resposta) {
     tarefa.push(peticion.body)
+    resposta.status(201)
+    resposta.send("Ok")
+}
+function controladorPut (peticion, resposta) {
+    const indice =tarefa.findIndex(tarefa => tarefa.id === peticion.body.id)
+    tarefa.splice(indice,1,peticion.body)
     resposta.status(201)
     resposta.send("Ok")
 }
@@ -32,6 +39,7 @@ function controladorGet (peticion, resposta) {
     resposta.status(200)
     resposta.send(JSON.stringify(tarefa))
 }
+
 
 
 // Posta en marcha da aplicación de Express
