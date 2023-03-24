@@ -13,22 +13,8 @@ let tarefa = [
         id: 0,
         descripcion: "Unha tarefa de exemplo",
         rematada: true,
-    },
-    {
-        id: 2,
-        descripcion: "Unha tarefa",
-        rematada: true,
-    },
-    {
-        id: 3,
-        descripcion: "Unha tarefa nova",
-        rematada: true,
-    },
-    {
-        id: 4,
-        descripcion: "Unha tarefa nova",
-        rematada: true,
     }
+ 
 ]
 
 // Definicions de endpoints
