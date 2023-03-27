@@ -17,8 +17,9 @@ let tarefas = [
 ]
 
 // Definicions de endpoints
-app.post("/tarefas/", controladorPost)
-app.get("/tarefas/", controladorGet)
+app.post("/tarefa/", controladorPost)
+app.get("/tarefa/", controladorGet)
+
 
 // Controladores executados polos endpoints
 function controladorPost (peticion, respuesta) {
@@ -31,6 +32,7 @@ function controladorGet (peticion, respuesta) {
     respuesta.status(200)
     respuesta.send(JSON.stringify(tarefas))
 }
+
 
 
 // Posta en marcha da aplicación de Express
