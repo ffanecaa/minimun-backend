@@ -8,30 +8,42 @@ app.use(express.json()) // Manexar os datos recibidos como JSON
 
 // O noso almacen de datos.
 // Normalmente en lugar do array atoparemos unha base de datos.
-let tarefas = [
+let tarefa = [
     {
         id: 0,
         descripcion: "Unha tarefa de exemplo",
-        completada: true,
+        rematada: true,
     }
+ 
 ]
 
 // Definicions de endpoints
 app.post("/tarefa/", controladorPost)
 app.get("/tarefa/", controladorGet)
+<<<<<<< HEAD
 
+=======
+// app.put("/tarefa/", controladorPut)
+>>>>>>> ecf172d78ebc9e39c08c0ae786a30cb0a58014a7
 
 // Controladores executados polos endpoints
-function controladorPost (peticion, respuesta) {
-    tarefas.push(peticion.body)
-    respuesta.status(201)
-    respuesta.send("Ok")
+function controladorPost (peticion, resposta) {
+    tarefa.push(peticion.body)
+    resposta.status(201)
+    resposta.send("Ok")
+}
+// function controladorPut (peticion, resposta) {
+//     const indice =tarefa.findIndex(tarefa => tarefa.id === peticion.body.id)
+//     const niidea =tarefa.splice(indice,1,peticion.body)
+//     niidea.push(peticion.body)
+//     resposta.send("Ok")
+// }
+
+function controladorGet (peticion, resposta) {
+    resposta.status(200)
+    resposta.send(JSON.stringify(tarefa))
 }
 
-function controladorGet (peticion, respuesta) {
-    respuesta.status(200)
-    respuesta.send(JSON.stringify(tarefas))
-}
 
 
 
