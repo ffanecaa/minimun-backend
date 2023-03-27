@@ -20,11 +20,6 @@ let tarefa = [
 // Definicions de endpoints
 app.post("/tarefa/", controladorPost)
 app.get("/tarefa/", controladorGet)
-<<<<<<< HEAD
-
-=======
-// app.put("/tarefa/", controladorPut)
->>>>>>> ecf172d78ebc9e39c08c0ae786a30cb0a58014a7
 
 // Controladores executados polos endpoints
 function controladorPost (peticion, resposta) {
