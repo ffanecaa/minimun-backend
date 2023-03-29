@@ -23,7 +23,7 @@ let tarefa = [
  
 ]
 
-const Tarefa = sequelize.define('Tarefa',{
+const Tarefa = sequelize.define('tarefa',{
     descripcion:{
         type:DataTypes.STRING
     },
@@ -33,46 +33,31 @@ const Tarefa = sequelize.define('Tarefa',{
 });
 
 await sequelize.sync({ alter: true })
+//creamos base datos
 
-// app.get("/tarefa/", async (peticion, respuesta)=>{
-//     if (peticion.query.id) {
-//         try {
-//             const tarefa = await Tarefa.findByPk(peticion.query.id)
-//             respuesta.setHeader("Content-Type", "application/json")
-//             respuesta.status(200)
-//             respuesta.send(tarefa.toJSON()) 
-//         } catch (error) {
-//             respuesta.status(500)
-//             respuesta.send('Error.')
-//         }
-//     } else  {
-//         try {
-//             const todasAsTarefas = await Tarefa.findAll()
-//             respuesta.setHeader("Content-Type", "application/json")
-//             respuesta.status(200)
-//             respuesta.send(JSON.stringify(todasAsTarefas))
-//         } catch (error) {
-//             respuesta.status(500)
-//             respuesta.send('Error.')
-//         }
-//     }
-// })
-
-
-
+// 
 
 // Definicions de endpoints
-app.post("/tarefa/", controladorPost)
-// app.get("/tarefa/", controladorGet)
+// app.post("/tarefa/", controladorPost)
+app.get("/tarefa/", controladorGet)
 app.put("/tarefa/", controladorPut)
 app.delete("/tarefa/", controladorDelete)
 
 // Controladores executados polos endpoints
-function controladorPost (peticion, resposta) {
-    tarefa.push(peticion.body)
+app.post("/tarefa/",async (peticion, resposta)=> {
+    try{
+  const tarefa = await Tarefa.create(peticion.body)
+
+  resposta.setHeader("content-Type","application/json")
     resposta.status(201)
-    resposta.send("Ok")
+    resposta.send(tarefa.toJSON())
+} catch(error){
+    resposta.status(500)
+    resposta.send("Error.")
 }
+})
+
+
 function controladorDelete (peticion, resposta) {
     console.log(peticion.body)
      let indice =tarefa.findIndex(estatarefa => estatarefa.id === peticion.body.id)
