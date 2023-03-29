@@ -1,10 +1,16 @@
 import express from "express"
 import cors from "cors"
+import { Sequelize, DataTypes } from "sequelize"
 
 // Creamos e configuramos a aplicación de Express
 const app = express()
 app.use(cors()) // Aceptar peticións desde outras URL
 app.use(express.json()) // Manexar os datos recibidos como JSON
+
+const sequelize = new Sequelize({
+ dialect:'sqlite',
+ storage:'./Database.sqlite'
+});
 
 // O noso almacen de datos.
 // Normalmente en lugar do array atoparemos unha base de datos.
@@ -17,9 +23,47 @@ let tarefa = [
  
 ]
 
+const Tarefa = sequelize.define('Tarefa',{
+    descripcion:{
+        type:DataTypes.STRING
+    },
+   rematada:{
+       type: DataTypes.BOOLEAN
+    }
+});
+
+await sequelize.sync({ alter: true })
+
+// app.get("/tarefa/", async (peticion, respuesta)=>{
+//     if (peticion.query.id) {
+//         try {
+//             const tarefa = await Tarefa.findByPk(peticion.query.id)
+//             respuesta.setHeader("Content-Type", "application/json")
+//             respuesta.status(200)
+//             respuesta.send(tarefa.toJSON()) 
+//         } catch (error) {
+//             respuesta.status(500)
+//             respuesta.send('Error.')
+//         }
+//     } else  {
+//         try {
+//             const todasAsTarefas = await Tarefa.findAll()
+//             respuesta.setHeader("Content-Type", "application/json")
+//             respuesta.status(200)
+//             respuesta.send(JSON.stringify(todasAsTarefas))
+//         } catch (error) {
+//             respuesta.status(500)
+//             respuesta.send('Error.')
+//         }
+//     }
+// })
+
+
+
+
 // Definicions de endpoints
 app.post("/tarefa/", controladorPost)
-app.get("/tarefa/", controladorGet)
+// app.get("/tarefa/", controladorGet)
 app.put("/tarefa/", controladorPut)
 app.delete("/tarefa/", controladorDelete)
 
