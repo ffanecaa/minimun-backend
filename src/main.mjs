@@ -40,8 +40,7 @@ function controladorDelete (peticion, resposta) {
 }
 function controladorPut (peticion, resposta) {
     console.log(peticion.body)
-     let indice =tarefa.findIndex(estatarefa => estatarefa.id === peticion.body.id)
-  
+      let indice =tarefa.findIndex(estatarefa => estatarefa.id === peticion.body.id)
       tarefa.splice(indice,1,peticion.body)
       resposta.status(200)
       resposta.send("Ok")
