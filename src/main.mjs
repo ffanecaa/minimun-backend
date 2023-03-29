@@ -39,9 +39,9 @@ await sequelize.sync({ alter: true })
 
 // Definicions de endpoints
 // app.post("/tarefa/", controladorPost)
-app.get("/tarefa/", controladorGet)
-app.put("/tarefa/", controladorPut)
-app.delete("/tarefa/", controladorDelete)
+// app.get("/tarefa/", controladorGet)
+// app.put("/tarefa/", controladorPut)
+// app.delete("/tarefa/", controladorDelete)
 
 // Controladores executados polos endpoints
 app.post("/tarefa/",async (peticion, resposta)=> {
@@ -57,31 +57,68 @@ app.post("/tarefa/",async (peticion, resposta)=> {
 }
 })
 
+app.delete("/tarefa/",async(peticion,resposta)=>{
+    try{
+        const tarefa = await Tarefa.findByPk(peticion.body.id)
+        await tarefa.destroy()
+        resposta.status(200)
+        resposta.send("Ok")
+    }
+    catch (error){
+     resposta.status(500)
+     resposta.send(error)
+    }
+})
 
-function controladorDelete (peticion, resposta) {
-    console.log(peticion.body)
-     let indice =tarefa.findIndex(estatarefa => estatarefa.id === peticion.body.id)
-      tarefa.splice(indice,1)
-      resposta.status(200)
-       resposta.send("Ok")
-
+app.put("/tarefa/",async(peticion,resposta)=>{
+    try{
+        const tarefa= await Tarefa.findByPk(peticion.body.id)
+        await tarefa.update(peticion.body)
+        resposta.status(200)
+        resposta.send("Ok")
+    } catch(error){
+        resposta.status(500)
+        resposta.send("error.")
+    }
+})
    
-}
-function controladorPut (peticion, resposta) {
-    console.log(peticion.body)
-     let indice =tarefa.findIndex(estatarefa => estatarefa.id === peticion.body.id)
-  
-      tarefa.splice(indice,1,peticion.body)
-      resposta.status(200)
-      resposta.send("Ok")
+
+
+     
   
    
-}
 
-function controladorGet (peticion, resposta) {
-    resposta.status(200)
-    resposta.send(JSON.stringify(tarefa))
-}
+
+// function controladorGet (peticion, resposta) {
+//     resposta.status(200)
+//     resposta.send(JSON.stringify(tarefa))
+// }
+
+app.get("/tarefa/", async (peticion, respuesta)=>{
+    if (peticion.query.id) {
+        try {
+            const tarefa = await Tarefa.findByPk(peticion.query.id)
+            respuesta.setHeader("Content-Type", "application/json")
+            respuesta.status(200)
+            respuesta.send(tarefa.toJSON()) 
+        } catch (error) {
+            respuesta.status(500)
+            respuesta.send('Error.')
+        }
+    } else  {
+        try {
+            const todasAsTarefas = await Tarefa.findAll()
+            respuesta.setHeader("Content-Type", "application/json")
+            respuesta.status(200)
+            respuesta.send(JSON.stringify(todasAsTarefas))
+        } catch (error) {
+            respuesta.status(500)
+            respuesta.send('Error.')
+        }
+    }
+})
+
+
 
 
 
