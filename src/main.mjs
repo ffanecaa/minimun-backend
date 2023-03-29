@@ -14,14 +14,14 @@ const sequelize = new Sequelize({
 
 // O noso almacen de datos.
 // Normalmente en lugar do array atoparemos unha base de datos.
-let tarefa = [
-    {
-        id: 0,
-        descripcion: "Unha tarefa de exemplo",
-        rematada: true,
-    }
+// let tarefa = [
+//     {
+//         id: 0,
+//         descripcion: "Unha tarefa de exemplo",
+//         rematada: true,
+//     }
  
-]
+// ]
 
 const Tarefa = sequelize.define('tarefa',{
     descripcion:{
